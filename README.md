@@ -15,6 +15,9 @@ cp .env.example .env
 # Start the dev server
 npx expo start
 
+# If Expo Go can't connect (phone and laptop on different subnets), use tunnel mode:
+npx expo start --tunnel
+
 # Run tests
 npm test
 ```
