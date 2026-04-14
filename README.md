@@ -67,9 +67,9 @@ Each VideoItem stacks: thumbnail (Image) → VideoView → overlay. The thumbnai
 
 - **expo-video vs expo-av**: expo-av is deprecated in SDK 54. expo-video has a newer API surface but fewer community examples. Chose correctness over familiarity.
 - **FlashList v2**: Removed `estimatedItemSize` (deprecated in v2). FlashList auto-calculates item sizes now.
-- **Like counts are semi-random**: First-time likes generate a random base count (0-500) since Pexels doesn't provide engagement data. Once toggled, counts persist to AsyncStorage.
+- **Like counts are seeded deterministically**: Since Pexels doesn't provide engagement data, initial counts are derived from video ID (`(id * 7) % 500`) when videos load. This keeps counts stable across renders and ensures `+1/-1` increments visibly. Once toggled, counts persist to AsyncStorage.
 - **Profile shows a fixed subset**: Rather than maintaining per-user video ownership (Pexels videos have different creators), the profile shows a deterministic subset of the feed. A real app would have user authentication and owned content.
-- **No audio ducking**: Multiple players exist simultaneously. Only the active one plays, but there's no sophisticated audio session management.
+- **Audio in Expo Go**: Audio playback may not work inside Expo Go on Android due to sandbox limitations on audio focus. It should work correctly in a production build (EAS Build / TestFlight).
 - **Portrait filtering is best-effort**: Pexels' `people` query returns mixed orientations. Portrait videos are sorted first, but some landscape videos will appear.
 
 ## What I'd Improve With More Time
